@@ -3,7 +3,7 @@ import Product from "./productCard";
 import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from "react-router-dom";
 
-export default function Landing() {
+function Landing() {
 
     return (
         <div style={{
@@ -66,7 +66,7 @@ function TopBar() {
 
                 <Button variant="text" sx={{
                     color: ' #7e75fa'
-                }} onClick={() => navigate('/signup')}>Nepali Books</Button>
+                }} onClick={() => navigate('/nepalibooks')}>Nepali Books</Button>
 
                 <Button variant="text" sx={{
                     color: ' #7e75fa'
@@ -84,3 +84,5 @@ function TopBar() {
         </div>
     )
 }
+
+export  {Landing,TopBar}

@@ -18,7 +18,7 @@ export default function AppBar() {
                 <Typography align="center">Online <br /> Book Store</Typography>
             </div>
             </a>
-            <Menu />
+          
             <div style={{ display: 'flex' }}>
                 <div style={{ marginRight: '10px' }}>
                     <Button variant='contained' size="small" sx={{

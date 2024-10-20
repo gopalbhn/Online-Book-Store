@@ -101,8 +101,10 @@ const CardComponent = ({ book }) => {
                 '&:hover': {
                     bgcolor: 'white',
                     color: '#7e75fa',
+                    boxShadow:'0px 0px 10px #7e75fa inset'
                 }
-            }}>Purchase</Button>
+            }} 
+            onClick={()=>window.alert(`Purchased Sucessfully ${books.title} \n Price: Rs. ${books.price}`)}>Purchase</Button>
         </div>
         ))
     };

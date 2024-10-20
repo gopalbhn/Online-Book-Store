@@ -1,5 +1,7 @@
 import { Typography, Button } from "@mui/material"
 import { TopBar } from "./landing";
+import Modal from './modal.jsx'
+import { useState } from "react";
 const NepaliBooks = () => {
     const books = [
         {
@@ -63,11 +65,13 @@ const NepaliBooks = () => {
     return (
         <>
         <TopBar />
+     
         <div style={{
             width:'90%',
             marginInline:'auto',
             display:'flex',
-            flexWrap:'wrap'
+            flexWrap:'wrap',
+            zIndex:1,
         }}>
             {console.log(books)}
             
@@ -78,9 +82,15 @@ const NepaliBooks = () => {
 }
 
 const CardComponent = ({ book }) => {
+    const [show,setShow] = useState(false)
+    function handleClick(){
+     setShow(!show)
+    }
+    
     return(
         <>
-    {book.map((books) => (
+         {show ? (<Modal title={book.title} image={book.image} description={book.description} onClick={handleClick} />) :null}
+        {book.map((books) =>(
         <div key={books.title} style={{
             height: "230px",
             width: "250px",
@@ -88,6 +98,7 @@ const CardComponent = ({ book }) => {
             margin: 10,
             backgroundColor: '#ebe6e6'
         }}>
+            
             {console.log(books)}
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', paddingTop: 2, objectFit:'contain'}}>
                 <img src={books.image} height={150} width={240} />
@@ -104,10 +115,13 @@ const CardComponent = ({ book }) => {
                     boxShadow:'0px 0px 10px #7e75fa inset'
                 }
             }} 
-            onClick={()=>window.alert(`Purchased Sucessfully ${books.title} \n Price: Rs. ${books.price}`)}>Purchase</Button>
+            onClick={()=>handleClick()}>Purchase</Button>
+           
         </div>
+        
         ))
     };
+    
      </>
     );
    

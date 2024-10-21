@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 
-export default function Product(){
+export default function Product({onClick}){
     return(
         <div style={{
             height:"230px",
@@ -21,7 +21,7 @@ export default function Product(){
                     bgcolor:'white',
                     color:'#7e75fa',
                 }
-            }}>Purchase</Button>
+            }} onClick={onClick}>Purchase</Button>
         </div>
     )
 }

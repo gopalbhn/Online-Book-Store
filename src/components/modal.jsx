@@ -1,117 +1,156 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-const book = {
-  title: "Palpasa Café",
-  author: "Narayan Wagle",
-  year: 2005,
-  image:
-    "https://upload.wikimedia.org/wikipedia/en/8/86/Karnali_Blues_by_Buddhisagar.jpg",
-  price: 50,
-  description:
-    "Palpasa Café is a poignant tale that intricately weaves themes of love, loss, and resilience against the backdrop of the Maoist conflict in Nepal. Through the eyes of the protagonist, the story unfolds in a richly detailed setting, capturing the struggles and aspirations of a generation caught in turmoil. As the characters navigate their relationships and the harsh realities of war, the narrative explores the enduring human spirit and the search for identity amid chaos. Wagle's lyrical prose invites readers to reflect on the impact of conflict on personal lives and the profound connections that sustain us.",
-};
-
-const Modal = ({onClick,title,description,image}) => {
-  const [count, setCount] = useState(0);
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+const Modal = ({ onClick, title, description, image, price }) => {
+  const [count, setCount] = useState(1);
   return (
     <div
       style={{
-        minHeight: "80vh",
-        width: "70%",
-        marginInline: "auto",
-        zIndex:10,
-        position: "relative",
-        boxShadow: "0 0px 20px rgba(0, 0, 0, 0.3)",
+        height: "100vh",
+        width: "100%",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        background: "rgba(0,0,0,0.5)",
+        zIndex: 59,
       }}
     >
       <div
         style={{
-          alignContent: "right",
-          position: "absolute",
-          right: "10px",
-          top: "10px",
+          height: "80vh",
+          width: "70%",
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%,-50%)",
+          zIndex: 10,
+          backgroundColor: "#fff",
+
+          boxShadow: "0 0px 20px rgba(0, 0, 0, 0.3)",
         }}
       >
-        <Button
-        onClick={onClick}
+        <div
           style={{
-            backgroundColor: "red",
-            color: "white",
-            borderRadius: "50%",
-            minWidth: "30px",
+            alignContent: "right",
+            position: "absolute",
+            right: "10px",
+            top: "10px",
           }}
         >
-          <CloseIcon />
-        </Button>
-      </div>
-      <div
-        style={{
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          justifyContent: "space-between",
-        }}
-      >
-        <Box
-          sx={{
-            height: "90%",
-            minWidth: "40%",
-            marginTop:'50px',
-            display:'flex',
-            justifyContent:'center',
-            alignItems:'center'
-          }}
-        >
-          <img
-            src={image}
-            height={"50%"}
-            width={'50%'}
-            alt={book.title}
+          <Button
+            onClick={onClick}
             style={{
-                 border: "1px solid",
-                 marginInline: "auto",
-                
+              backgroundColor: "red",
+              color: "white",
+              borderRadius: "50%",
+              minWidth: "30px",
             }}
-          />
-        </Box>
-        <Box
-          sx={{
-            padding: 2,
+          >
+            <CloseIcon />
+          </Button>
+        </div>
+        <div
+          style={{
+            height: "100%",
+            width: "100%",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <div style={{ textAlign: "center" }}>
-            <Typography variant="h6">{title}</Typography>{" "}
-          </div>
-          <div>
-            <Typography variant="body1">{description}</Typography>
-          </div>
-          <div style={{
-           marginInline:'50px',
-          }}>
-            <Typography variant="body1"> Select Quantity</Typography>
-            <Button variant="outlined" onClick={()=>setCount(count-1)}>-</Button>
-            <Typography variant="body1"marginInline={4} style={{display:'inline'}}>{count}</Typography>
-            <Button variant="outlined" onClick={()=>setCount(count+1)}>+</Button>
-          </div>
-          <div style={{
-            display:'flex',
-            flex:1,
-            marginTop:'30px'
-          }}>
-                <Button variant="contained" style={{
-                    backgroundColor:'#7e75fa',
-                    marginInline:'15px'
-                }}>Buy Now</Button>
-                <Button variant='contained' startIcon={<ShoppingCartIcon />} 
-                sx={{
-                    bgcolor:'white',
-                    color:'#7e75fa'
+          <Box
+            sx={{
+              height: "90%",
+              minWidth: "40%",
+              marginTop: "50px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <img
+              src={image}
+              height={"50%"}
+              width={"50%"}
+              alt={title}
+              style={{
+                border: "1px solid",
+                marginInline: "auto",
+              }}
+            />
+          </Box>
+          <Box
+            sx={{
+              padding: 2,
+            }}
+          >
+            <div style={{ textAlign: "center", marginTop: "10px" }}>
+              <Typography variant="h6">{title}</Typography>{" "}
+            </div>
+            <div
+              style={{
+                maxHeight: "20vh",
+              }}
+            >
+              <Typography variant="body1">{description}</Typography>
+            </div>
+            <div
+              style={{
+                marginInline: "50px",
+              }}
+            >
+              <Typography variant="body1">Price: Rs.{count * price}</Typography>
+              <Typography variant="body1"> Select Quantity</Typography>
+
+              {count == 1 ? (
+                <Button disabled variant="outlined">
+                  -
+                </Button>
+              ) : (
+                <Button variant="outlined" onClick={() => setCount(count - 1)}>
+                  -
+                </Button>
+              )}
+              <Typography
+                variant="body1"
+                marginInline={4}
+                style={{ display: "inline" }}
+              >
+                {count}
+              </Typography>
+              <Button variant="outlined" onClick={() => setCount(count + 1)}>
+                +
+              </Button>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flex: 1,
+                marginTop: "30px",
+              }}
+            >
+              <Button
+                variant="contained"
+                style={{
+                  backgroundColor: "#7e75fa",
+                  marginInline: "15px",
                 }}
-                >Add to Cart </Button>
-          </div>
-        </Box>
+              >
+                Buy Now
+              </Button>
+              <Button
+                variant="contained"
+                startIcon={<ShoppingCartIcon />}
+                sx={{
+                  bgcolor: "white",
+                  color: "#7e75fa",
+                }}
+              >
+                Add to Cart{" "}
+              </Button>
+            </div>
+          </Box>
+        </div>
       </div>
     </div>
   );

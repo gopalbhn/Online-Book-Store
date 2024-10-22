@@ -9,14 +9,17 @@ const generateJwt = (user) =>{
 
 const athunticateJWT = (req,res,next) => {
 const authHeader = req.headers.authorization;
+
 const secret = 'SecR3t';
 if(authHeader){
     const token = authHeader.split(' ')[1];
+ 
     jwt.verify(token,secret,(err,user)=>{
         if (err){
             throw res.status(403);
         }
-        if(user.role==='Admin'){
+        if(user){
+          
         req.user = user;
         next();
         }

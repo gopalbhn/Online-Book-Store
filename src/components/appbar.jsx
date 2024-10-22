@@ -1,9 +1,12 @@
 import { Button, Typography,Select,MenuItem } from "@mui/material";
-import { useState } from "react";
+
+import { useState ,useEffect} from "react";
 import {useNavigate} from 'react-router-dom'
 export default function AppBar() {
    
     const navigate = useNavigate();
+  
+
     return (
         <div style={{
             display: 'flex',
@@ -45,7 +48,6 @@ export default function AppBar() {
         </div>
     )
 }
-
 function Menu(){
     const [age,setAge] = useState('Product');
     return(

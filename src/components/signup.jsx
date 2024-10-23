@@ -16,8 +16,10 @@ export default function Signup() {
       let data = response.data;
       
         localStorage.setItem('token',data.token)
-     
+        window.location.href = '/'
+       
     }
+    
  }
   return (
     <div

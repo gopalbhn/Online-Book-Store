@@ -2,7 +2,9 @@ import { Password } from "@mui/icons-material";
 import { Card, Input, Typography, TextField, Button } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 export default function Login() {
+  const navigate = useNavigate();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
   async function handleClick() {
@@ -15,7 +17,7 @@ export default function Login() {
     if(response){
         let data = response.data;
         localStorage.setItem('token',data.token)
-        window.location.reload();
+        window.location.href='/';
     }
   }
   return (

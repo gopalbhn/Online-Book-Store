@@ -36,17 +36,17 @@ router.post('/login',async(req,res)=>{
     }
 })
 
-// router.post('/signup',isAdmin,async(req,res)=>{
-//     const admin = req.body;
-//     const isAdmin = await User.findOne({username:admin.username, role:'Admin'})
-//     if(isAdmin){
-//         res.status(403).json({message:'Admin already existed'})
-//     }else{
-//         const newAdmin = new User(admin)
-//         newAdmin.save();
-//         res.status(200).json({message:'Admin created sucessfully'})
-//     }
-// })
+router.post('/admin/signup',athunticateJWT,isAdmin,async(req,res)=>{
+    const admin = req.body;
+    const isAdmin = await User.findOne({username:admin.username, role:'Admin'})
+    if(isAdmin){
+        res.status(403).json({message:'Admin already existed'})
+    }else{
+        const newAdmin = new User(admin)
+        newAdmin.save();
+        res.status(200).json({message:'Admin created sucessfully'})
+    }
+})
 router.post('/addbook',athunticateJWT,async (req,res)=>{
     const book = req.body;
     console.log(book)

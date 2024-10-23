@@ -1,12 +1,10 @@
-import { Button, Typography,Select,MenuItem } from "@mui/material";
-
-import { useState ,useEffect} from "react";
+import { Button, Typography} from "@mui/material";
 import {useNavigate} from 'react-router-dom'
+import { useRecoilState, useRecoilValue } from "recoil";
+import { userEmail } from "../store/selectors/userSelector";
 export default function AppBar() {
-   
-    const navigate = useNavigate();
-  
-
+  let username = useRecoilValue(userEmail)
+  const navigate = useNavigate();
     return (
         <div style={{
             display: 'flex',
@@ -14,6 +12,7 @@ export default function AppBar() {
             padding: '5px',
             marginInline:'10px'
         }}>
+            {console.log('username',username)}
             <a href="/" style={{
                 textDecoration:'none'
             }}>
@@ -21,7 +20,7 @@ export default function AppBar() {
                 <Typography align="center">Online <br /> Book Store</Typography>
             </div>
             </a>
-          
+          {!username ? (
             <div style={{ display: 'flex' }}>
                 <div style={{ marginRight: '10px' }}>
                     <Button variant='contained' size="small" sx={{
@@ -43,27 +42,21 @@ export default function AppBar() {
                         navigate('/Login')
                     }>Login</Button>
                 </div>
-
+            </div> ) :
+            <div>
+                <Button variant="outlined" sx={{
+                    color:'##7e75fa'
+                }}
+                onClick={()=>{
+                    localStorage.setItem('token',null)
+                    window.location.href = '/'
+                }}
+                >
+                    Logout
+                </Button>
             </div>
-        </div>
-    )
+
 }
-function Menu(){
-    const [age,setAge] = useState('Product');
-    return(
-        <div>
-        <Select
-          sx={{height:30}}
-            value={age}
-            label="Age"
-            onChange={(e)=>{
-                setAge(e.target.value)
-            }}
-        >
-            <MenuItem value={10}>Ten</MenuItem>
-            <MenuItem value={20}>Twenty</MenuItem>
-            <MenuItem value={30}>Thirty</MenuItem>
-        </Select>
-    </div>
+        </div>
     )
 }

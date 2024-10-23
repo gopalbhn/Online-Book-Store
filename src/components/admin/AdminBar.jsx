@@ -33,7 +33,10 @@ const navigate = useNavigate();
             </div>
             <div>
                 <Button variant="text" size='small' endIcon ={< LoginIcon style={{marginLeft:'-8px'}}/>}
-                onClick = {()=>navigate('/logout')}
+                onClick = {()=>{
+                    localStorage.setItem('token',null);
+                    window.location.href='/'
+                }}
                 >LogOut</Button>
             </div>
             </div>

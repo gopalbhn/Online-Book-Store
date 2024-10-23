@@ -29,6 +29,7 @@ if(authHeader){
 }
 }
 const isAdmin = (req,res,next) =>{
+    console.log('req',req.user);
     if(req.user.role === 'Admin'){
         next();
     }else{

@@ -14,7 +14,7 @@ const ImageSlider = ({image})=>{
 
        <Box sx={{
         height:200,
-        minwidth:'90%',
+        minWidth:'90%',
         overflow:'hidden'
        }}>
          <ImageCard />

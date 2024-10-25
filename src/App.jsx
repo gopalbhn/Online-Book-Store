@@ -9,9 +9,11 @@ import NepaliBooks from "./components/Nepalibooks.jsx";
 import AdminLayout from "./components/admin/layout.jsx";
 import axios from "axios";
 import AdminSignup from "./components/admin/AdminSignup.jsx";
-import { RecoilRoot, useRecoilState, useSetRecoilState } from "recoil";
+import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "./store/atom/useratom.js";
-
+import { userRole } from "./store/selectors/userSelector.js";
+import InvestmentBooks from "./components/investmentBooks.jsx";
+import { bookState } from "./store/atom/bookatom.js";
 function App() {
 
   return (
@@ -24,7 +26,9 @@ function App() {
   );
 }
 function InitUser() {
-  const [user,setUser] = useRecoilState(userState);
+  const setUser = useSetRecoilState(userState)
+  const role = useRecoilValue(userRole);
+   const setBook = useSetRecoilState(bookState)
   useEffect(() => {
     async function fetchData() {
       try {
@@ -51,17 +55,32 @@ function InitUser() {
     }
     fetchData();
   }, []);
+
+  useEffect(()=>{
+    async function fetchBookData(){
+        const response = await axios.get('http://localhost:3000/users/getbooks');
+        let data = response.data;
+        console.log('getbooks',data.books)
+        if(data){
+            setBook(data.books)
+        }else{
+            setBook([])
+        }
+    }
+    fetchBookData();
+},[])
   return <div>
-{console.log('user',user)}
+{console.log('userrole',role)}
     <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="Login" element={<Login />} />
             <Route path="/nepalibooks" element={<NepaliBooks />} />
-            {user.role == "Admin" && (
+            <Route path="/investment" element ={<InvestmentBooks />} />
+            {role == "Admin" && (
               <Route path="/admin/dashbord" element={<AdminLayout />} />
             )}
-            {user.role == "Admin" && (
+            {role == "Admin" && (
               <Route path="/admin/signup" element={<AdminSignup />} />
             )}
           </Routes>

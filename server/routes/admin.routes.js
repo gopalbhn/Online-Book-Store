@@ -47,7 +47,7 @@ router.post('/admin/signup',athunticateJWT,isAdmin,async(req,res)=>{
         res.status(200).json({message:'Admin created sucessfully'})
     }
 })
-router.post('/addbook',athunticateJWT,async (req,res)=>{
+router.post('/addbook',athunticateJWT,isAdmin,async (req,res)=>{
     const book = req.body;
     console.log(book)
     if(!book){
@@ -60,6 +60,6 @@ router.post('/addbook',athunticateJWT,async (req,res)=>{
 
 router.get('/getbooks',async (req,res)=>{
    const books =  await Book.find();
-res.status(200).json({Books:books});
+res.status(200).json({books});
 }),
 module.exports = router;

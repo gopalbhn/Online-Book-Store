@@ -1,18 +1,21 @@
-import { Box, Button, Typography } from "@mui/material";
+import {Button, Typography } from "@mui/material";
+import { bookState } from "../store/atom/bookatom";
 
-export default function Product({onClick}){
+export default function Product({onClick,booksDetail}){
+   let  book = booksDetail;
     return(
         <div style={{
-            height:"230px",
-            width:"250px",
+            maxHeight:"230px",
+            maxWidth:"250px",
             padding:2,
-            margin:10,
+            marginInline:10,
             backgroundColor:'#ebe6e6'
         }}>
+            {console.log('product',book)}
             <div style={{display:'flex',alignItems:'center', justifyContent:'center', paddingTop:2}}>
-                <img src="04.jpg" height={150} width={240}/>
+                <img src={book.thumbnail} height={150} width={240}/>
             </div>
-            <Typography align="right" marginRight={5}>Price Rs.50</Typography>
+            <Typography align="right" marginRight={5}>{book.price}</Typography>
             <Button variant="contained" fullWidth={true} sx={{
                 bgcolor:'#7e75fa',
                 color:'white',

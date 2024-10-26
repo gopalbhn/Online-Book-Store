@@ -14,6 +14,7 @@ import { userState } from "./store/atom/useratom.js";
 import { userRole } from "./store/selectors/userSelector.js";
 import InvestmentBooks from "./components/investmentBooks.jsx";
 import { bookState } from "./store/atom/bookatom.js";
+import ShopingCart from "./components/shopingcart.jsx";
 function App() {
 
   return (
@@ -77,6 +78,7 @@ function InitUser() {
             <Route path="Login" element={<Login />} />
             <Route path="/nepalibooks" element={<NepaliBooks />} />
             <Route path="/investment" element ={<InvestmentBooks />} />
+            <Route path="/shopingCart" element={<ShopingCart />} />
             {role == "Admin" && (
               <Route path="/admin/dashbord" element={<AdminLayout />} />
             )}

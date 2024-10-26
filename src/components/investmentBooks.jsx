@@ -3,8 +3,20 @@ import { investmentBooks } from "../store/selectors/bookselectors";
 import Product from "./productCard";
 import { TopBar } from "./landing";
 import { Grid } from '@mui/material'
+import Modal from './modal'
+import { useState } from "react";
 const InvestmentBooks = () => {
   const book = useRecoilValue(investmentBooks);
+  const [product,setProduct] = useState(null)
+  const [show,setShow] = useState(false);
+  function handleClick(pro){
+    setProduct(pro)
+ 
+ setShow(!show)
+}
+function handleToogle(){
+    setShow(!show)
+}
   return (
     <div
       style={{
@@ -25,6 +37,7 @@ const InvestmentBooks = () => {
         );
       })}
       </Grid>
+      {show ? (<Modal title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} />) :null}
     </div>
   );
 };

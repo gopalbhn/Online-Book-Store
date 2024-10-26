@@ -2,8 +2,11 @@ import { Box, Button, Typography } from "@mui/material";
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-const Modal = ({ onClick, title, description, image, price }) => {
+import { CartState } from "../store/atom/cartatom";
+import { useSetRecoilState } from "recoil";
+const Modal = ({ onClick, title, description, image, price,quantity,product }) => {
   const [count, setCount] = useState(1);
+  const setPro = useSetRecoilState(CartState);
   return (
     <div
       style={{
@@ -118,9 +121,11 @@ const Modal = ({ onClick, title, description, image, price }) => {
               >
                 {count}
               </Typography>
-              <Button variant="outlined" onClick={() => setCount(count + 1)}>
+             {count === quantity ? ( <Button disabled variant="outlined">
+                  -
+                </Button>) :  <Button variant="outlined" onClick={() => setCount(count + 1)}>
                 +
-              </Button>
+              </Button>}
             </div>
             <div
               style={{
@@ -141,6 +146,11 @@ const Modal = ({ onClick, title, description, image, price }) => {
               <Button
                 variant="contained"
                 startIcon={<ShoppingCartIcon />}
+                onClick={()=>{
+                  setPro(prev=>{
+                    return [...prev,product]
+                  })
+                }}
                 sx={{
                   bgcolor: "white",
                   color: "#7e75fa",

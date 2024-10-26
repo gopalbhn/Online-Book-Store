@@ -1,4 +1,4 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 const images =[
     'https://img.freepik.com/free-vector/hand-drawn-flat-design-stack-books-illustration_23-2149341898.jpg?size=338&ext=jpg&ga=GA1.1.2113030492.1729382400&semt=ais_hybrid',
@@ -8,41 +8,25 @@ const images =[
     'https://media.thuprai.com/front_covers/Sangat-front.jpg'
     
 ]
-const ImageSlider = ({image})=>{
-  
-    return(
+ let n = Math.floor(Math.random()*5);
 
-       <Box sx={{
-        height:200,
-        minWidth:'90%',
-        overflow:'hidden'
-       }}>
-         <ImageCard />
-       </Box>
-    )
-}
-const ImageCard = () =>{
+
+const ImageSlider  = () => {
     return(
-        <>
-        {images.map(img=>(
-            <div key ={img} style={{
-                height:'200px',
-                width:'300px',
-                padding:5,
-                marginInline:5,
-                display:'inline-block',
-                border:'1px solid'
-            }}>
-            <img style={{
-                height:'100%',
-                width:'100%'
-            }}src={img} />
-            </div>
-        ))
-            
-        }
-        </>   
-    );
-    
+        <Box sx={{
+            height:"250px",
+            width:'90%',
+            marginInline:'auto',
+            marginBottom:'50px',
+            background:`linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(${images[n]})`,
+            padding:5,
+            color:'white'
+        }}>
+            <Typography variant="h4">
+                Find the best book here<br />
+                On Affordable Price
+            </Typography>
+        </Box>
+    )
 }
 export default ImageSlider;

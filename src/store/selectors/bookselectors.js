@@ -33,4 +33,14 @@ const nepalibooks = selector({
         return nepalibooks;
     }
 })
-export {bookName,investmentBooks,nepalibooks}
+
+const selfhelp = selector({
+    key:'selfhelp',
+    get:({get}) => {
+        const state = get(bookState);
+
+        const selfhelp = state.filter(book=>book.category === 'selfhelp')
+        return selfhelp;
+    }
+})
+export {bookName,investmentBooks,nepalibooks,selfhelp}

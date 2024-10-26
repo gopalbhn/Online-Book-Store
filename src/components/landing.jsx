@@ -5,19 +5,24 @@ import { useNavigate } from "react-router-dom";
 import ImageSlider from "./imageSlider";
 import { useState,useEffect } from "react";
 import Modal from './modal'
-import axios from 'axios'
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { bookState } from "../store/atom/bookatom";
+import { userEmail } from "../store/selectors/userSelector";
 function Landing() {
     const [show,setShow] = useState(false);
     const [product,setProduct] = useState(null)
     const books  = useRecoilState(bookState)
     const book = books[0]
+    const user = useRecoilValue(userEmail);
+    const navigate = useNavigate();
     function handleClick(pro){
-        setProduct(pro)
-     
-     setShow(!show)
-    }
+       if(user) {
+            setProduct(pro)
+            setShow(!show)
+       }else{
+            navigate('/login')
+       }
+      }
     function handleToogle(){
         setShow(!show)
     }
@@ -35,9 +40,18 @@ function Landing() {
             minHeight: '100vh',
             width: '90%',
             marginInline: 'auto',
+            marginBottom:'100px'
         }}>
         {console.log('from books',book[0])}
+            <ImageSlider />
             <TopBar />
+            <hr />
+            <Typography style={{
+                textAlign:'center'
+            }} variant="h4">
+                Latest Product
+            </Typography>
+            <hr />
             <Grid container spacing={3}>
                 
                    
@@ -46,10 +60,10 @@ function Landing() {
                         <Product onClick={()=>handleClick(books)} booksDetail={books}/>
                         </Grid >
                     )})}
-
+                    
                 
             </Grid>
-            {show ? (<Modal title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} />) :null}
+            {show ? (<Modal product ={product }title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} quantity = {product.quantity}     />) :null}
         </div>
     )
 }
@@ -64,12 +78,18 @@ function TopBar() {
             marginTop: '10px',
             marginInline:'auto'
         }} >
-            <ImageSlider />
+          
            <Grid container spacing={3} sx={{justifyContent:{xs:'center',sm:'space-around'}}} >
             <Grid item  xs={12} sm={'auto'} >
                 <Button variant="text"
                     startIcon={<HomeIcon />}
-                    style={{ color: ' #7e75fa' }}
+                    sx={{ color: '#7e75fa',
+                        '&:hover':{
+                            color:'white',
+                            bgcolor:'#7e75fa'
+                        },
+                        
+                     }}
                     onClick={() => navigate('/')}
                 >
                     Home
@@ -77,22 +97,38 @@ function TopBar() {
                     </Grid>
                     <Grid item sm={'auto'} xs={12} >
                 <Button variant="text" sx={{
-                    color: ' #7e75fa'
+                    color: ' #7e75fa',
+                    '&:hover':{
+                        color:'white',
+                        bgcolor:'#7e75fa'
+                    }
                 }} onClick={() => navigate('/nepalibooks')}>Nepali Books</Button>
                     </Grid>
                     <Grid item xs={12} sm={'auto'} >
                 <Button variant="text" sx={{
-                    color: ' #7e75fa'
+                    color: ' #7e75fa',
+                    '&:hover':{
+                        color:'white',
+                        bgcolor:'#7e75fa'
+                    }
                 }} onClick={() => navigate('/signup')}>Best Seller</Button>
                 </Grid>
                 <Grid item xs={12} sm={'auto'} >
                 <Button variant="text" sx={{
-                    color: ' #7e75fa'
+                    color: ' #7e75fa',
+                    '&:hover':{
+                        color:'white',
+                        bgcolor:'#7e75fa'
+                    }
                 }} onClick={() => navigate('/signup')}>Self Help</Button>
                     </Grid>
                     <Grid item xs={12} sm={'auto'} >
                 <Button variant="text" sx={{
-                    color: ' #7e75fa'
+                    color: ' #7e75fa',
+                    '&:hover':{
+                        color:'white',
+                        bgcolor:'#7e75fa'
+                    }
                 }} onClick={() => navigate('/investment')}>Investment</Button>
                 </Grid>
 

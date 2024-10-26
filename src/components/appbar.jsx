@@ -2,8 +2,11 @@ import { Button, Typography} from "@mui/material";
 import {useNavigate} from 'react-router-dom'
 import { useRecoilState, useRecoilValue } from "recoil";
 import { userEmail } from "../store/selectors/userSelector";
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { CartState } from "../store/atom/cartatom";
 export default function AppBar() {
   let username = useRecoilValue(userEmail)
+  let product = useRecoilValue(CartState);
   const navigate = useNavigate();
     return (
         <div style={{
@@ -43,6 +46,7 @@ export default function AppBar() {
                     }>Login</Button>
                 </div>
             </div> ) :
+            <div style={{display:'flex'}}>
             <div>
                 <Button variant="outlined" sx={{
                     color:'##7e75fa'
@@ -55,6 +59,19 @@ export default function AppBar() {
                     Logout
                 </Button>
             </div>
+            {console.log('product total',product)}
+            <div style={{ marginInline: '20px' }}>
+                    <Button variant="text" size={'small'} sx={{
+                        bgcolor: 'white',
+                        color: '#7e75fa',
+                        borderRadius: '10px'
+                    }}
+                    onClick={()=>
+                        navigate('/shopingCart')
+                    }><ShoppingCartIcon /> Cart {product.length}</Button>
+                </div>
+            </div>
+
 
 }
         </div>

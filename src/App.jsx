@@ -1,35 +1,41 @@
-import { useEffect, useState } from "react";
-import "./App.css";
-import { Landing } from "./components/landing.jsx";
-import AppBar from "./components/appbar.jsx";
-import Signup from "./components/signup.jsx";
-import Login from "./components/login.jsx";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import NepaliBooks from "./components/Nepalibooks.jsx";
+import { useEffect } from "react";
+import AppBar from "./pages/appbar.jsx";
+import Signup from "./pages/signup.jsx";
+import Login from "./pages/login.jsx";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useNavigate,
+} from "react-router-dom";
+import NepaliBooks from "./pages/Nepalibooks.jsx";
 import AdminLayout from "./components/admin/layout.jsx";
 import axios from "axios";
 import AdminSignup from "./components/admin/AdminSignup.jsx";
-import { RecoilRoot, useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { RecoilRoot, useRecoilValue, useSetRecoilState } from "recoil";
 import { userState } from "./store/atom/useratom.js";
 import { userRole } from "./store/selectors/userSelector.js";
-import InvestmentBooks from "./components/investmentBooks.jsx";
+import InvestmentBooks from "./pages/investmentBooks.jsx";
 import { bookState } from "./store/atom/bookatom.js";
-import ShopingCart from "./components/shopingcart.jsx";
+import ShopingCart from "./pages/shopingcart.jsx";
+import CheckOut from "./pages/checkout.jsx";
+import { Landing } from "./pages/landing.jsx";
+import SelfHelp from "./pages/selfhelp.jsx";
 function App() {
-
   return (
     <RecoilRoot>
-        <Router>
-          <AppBar />
-          <InitUser/>
-        </Router>
+      <Router>
+        <AppBar />
+        <InitUser />
+      </Router>
     </RecoilRoot>
   );
 }
 function InitUser() {
-  const setUser = useSetRecoilState(userState)
+  const setUser = useSetRecoilState(userState);
   const role = useRecoilValue(userRole);
-   const setBook = useSetRecoilState(bookState)
+  const setBook = useSetRecoilState(bookState);
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
       try {
@@ -42,11 +48,11 @@ function InitUser() {
         if (data) {
           setUser({
             user: data.user,
-          })
-        }else{
+          });
+        } else {
           setUser({
-            user:null
-          })
+            user: null,
+          });
         }
       } catch (e) {
         setUser({
@@ -57,35 +63,48 @@ function InitUser() {
     fetchData();
   }, []);
 
-  useEffect(()=>{
-    async function fetchBookData(){
-        const response = await axios.get('http://localhost:3000/users/getbooks');
-        let data = response.data;
-        console.log('getbooks',data.books)
-        if(data){
-            setBook(data.books)
-        }else{
-            setBook([])
-        }
+  useEffect(() => {
+    async function fetchBookData() {
+      const response = await axios.get("http://localhost:3000/users/getbooks");
+      let data = response.data;
+      console.log("getbooks", data.books);
+      if (data) {
+        setBook(data.books);
+      } else {
+        setBook([]);
+      }
     }
     fetchBookData();
-},[])
-  return <div>
-{console.log('userrole',role)}
-    <Routes>
-            <Route path="/" element={<Landing />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="Login" element={<Login />} />
-            <Route path="/nepalibooks" element={<NepaliBooks />} />
-            <Route path="/investment" element ={<InvestmentBooks />} />
-            <Route path="/shopingCart" element={<ShopingCart />} />
-            {role == "Admin" && (
-              <Route path="/admin/dashbord" element={<AdminLayout />} />
-            )}
-            {role == "Admin" && (
-              <Route path="/admin/signup" element={<AdminSignup />} />
-            )}
-          </Routes>
-  </div>
+  }, []);
+
+  useEffect(() => {
+    if (role) {
+      if (role == "Admin") {
+        navigate("/admin/dashbord");
+      } 
+    }
+  }, [role]);
+  return (
+    <div>
+      {console.log("userrole", role)}
+
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="Login" element={<Login />} />
+        <Route path="/nepalibooks" element={<NepaliBooks />} />
+        <Route path="/investment" element={<InvestmentBooks />} />
+        <Route path="/shopingCart" element={<ShopingCart />} />
+        <Route path="/checkout" element={<CheckOut />} />
+        <Route path="selfhelp" element={<SelfHelp />} />
+        {role == "Admin" && (
+          <Route path="/admin/dashbord" element={<AdminLayout />} />
+        )}
+        {role == "Admin" && (
+          <Route path="/admin/signup" element={<AdminSignup />} />
+        )}
+      </Routes>
+    </div>
+  );
 }
 export default App;

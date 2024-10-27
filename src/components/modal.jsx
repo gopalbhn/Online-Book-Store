@@ -148,7 +148,10 @@ const Modal = ({ onClick, title, description, image, price,quantity,product }) =
                 startIcon={<ShoppingCartIcon />}
                 onClick={()=>{
                   setPro(prev=>{
-                    return [...prev,product]
+                    return [...prev,product,count]
+                    if(prev.id === product.id){
+                      return [...prev,]
+                    }
                   })
                 }}
                 sx={{

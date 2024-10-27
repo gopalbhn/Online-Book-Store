@@ -3,7 +3,7 @@ import { investmentBooks } from "../store/selectors/bookselectors";
 import Product from "./productCard";
 import { TopBar } from "./landing";
 import { Grid } from '@mui/material'
-import Modal from './modal'
+import Modal from '../components/modal'
 import { useState } from "react";
 const InvestmentBooks = () => {
   const book = useRecoilValue(investmentBooks);

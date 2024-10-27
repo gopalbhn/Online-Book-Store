@@ -1,6 +1,6 @@
 import { Typography, Button } from "@mui/material"
-import { TopBar } from "./landing";
-import Modal from './modal.jsx'
+import { TopBar } from "./landing.jsx";
+import Modal from '../components/modal.jsx'
 import { useState,useEffect } from "react";
 const NepaliBooks = () => {
     const books = [

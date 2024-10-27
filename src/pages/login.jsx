@@ -17,6 +17,7 @@ export default function Login() {
     if(response){
         let data = response.data;
         localStorage.setItem('token',data.token)
+        console.log('role',data)
         window.location.href='/';
     }
   }

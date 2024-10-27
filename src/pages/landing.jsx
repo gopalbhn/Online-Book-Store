@@ -4,7 +4,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useNavigate } from "react-router-dom";
 import ImageSlider from "./imageSlider";
 import { useState,useEffect } from "react";
-import Modal from './modal'
+import Modal from '../components/modal'
 import { useRecoilState, useRecoilValue } from "recoil";
 import { bookState } from "../store/atom/bookatom";
 import { userEmail } from "../store/selectors/userSelector";
@@ -63,7 +63,7 @@ function Landing() {
                     
                 
             </Grid>
-            {show ? (<Modal product ={product }title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} quantity = {product.quantity}     />) :null}
+            {show ? (<Modal product ={product }title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} quantity = {product.quantity}/>) :null}
         </div>
     )
 }
@@ -120,7 +120,7 @@ function TopBar() {
                         color:'white',
                         bgcolor:'#7e75fa'
                     }
-                }} onClick={() => navigate('/signup')}>Self Help</Button>
+                }} onClick={() => navigate('/selfhelp')}>Self Help</Button>
                     </Grid>
                     <Grid item xs={12} sm={'auto'} >
                 <Button variant="text" sx={{

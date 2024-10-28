@@ -1,12 +1,16 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { CartState } from "../store/atom/cartatom";
-import { useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useNavigate } from "react-router-dom";
 const Modal = ({ onClick, title, description, image, price,quantity,product }) => {
   const [count, setCount] = useState(1);
   const setPro = useSetRecoilState(CartState);
+  const book =  useRecoilValue(CartState)
+  const navigate = useNavigate();
+
   return (
     <div
       style={{
@@ -140,6 +144,7 @@ const Modal = ({ onClick, title, description, image, price,quantity,product }) =
                   backgroundColor: "#7e75fa",
                   marginInline: "15px",
                 }}
+                onClick={()=>{navigate('/checkout')}}
               >
                 Buy Now
               </Button>
@@ -147,12 +152,18 @@ const Modal = ({ onClick, title, description, image, price,quantity,product }) =
                 variant="contained"
                 startIcon={<ShoppingCartIcon />}
                 onClick={()=>{
-                  setPro(prev=>{
-                    return [...prev,product,count]
-                    if(prev.id === product.id){
-                      return [...prev,]
-                    }
-                  })
+                  console.log('product',product)
+                  let updateCart;
+                  const existingProduct = book.find(item => item._id === product._id);
+                  if(existingProduct){
+                    updateCart = book.map(item => item._id === product._id ? {...item,count:item.count+count} :item)
+                  }else{
+                    updateCart = [...book,{...product,count}]
+                  }
+                  setPro(updateCart)
+                  localStorage.setItem('cart',JSON.stringify(updateCart))
+                  
+                  
                 }}
                 sx={{
                   bgcolor: "white",

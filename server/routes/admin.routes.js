@@ -62,4 +62,24 @@ router.get('/getbooks',async (req,res)=>{
    const books =  await Book.find();
 res.status(200).json({books});
 }),
+
+router.post('/purchase',athunticateJWT,async (req,res)=>{
+    const {id,quantity} = req.body;
+
+    try{
+        const product = await Book.findById(id);
+
+        if(!product){
+            return res.status(404).json({message:'Product not found in Database'});
+        }
+
+        if(product.quantity < quantity){
+            return res.status(404).json({message:'Product is not Available in Stock'})
+        }
+        product.quantity -=quantity;
+        await  product.save();
+    }catch(err){
+        res.status(500).json({message:'Server error'})
+    }
+})
 module.exports = router;

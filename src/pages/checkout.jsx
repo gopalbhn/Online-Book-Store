@@ -1,6 +1,8 @@
 import { Typography, Box, TextField,Select,MenuItem, Button } from "@mui/material";
 import { useState } from "react";
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { useRecoilValue } from "recoil";
+import { CartState } from "../store/atom/cartatom";
 const CheckOut = () => {
   return (
     <div
@@ -41,19 +43,29 @@ const Form = () => {
     "India":['Dehli','Mumbai',"Bihar","Panjab"],
     "China":[]
   }
+  const book = useRecoilValue(CartState);
   const [country,setCountry] = useState('Nepal');
   const [cState,setCState] = useState(State[country])
-  const [selectedState,setSelectedState] =useState('Select')
+  const [selectedState,setSelectedState] =useState(State[country][0])
   
   function handleCountryChange(e){
     const selectedCountry = e.target.value;
     setCountry(selectedCountry)
     setCState(State[selectedCountry]);
-    setSelectedState(State[selectedCountry][0])
+    setSelectedState('')
     
   }
   function handleStateChange(e){
     setSelectedState(e.target.value);
+  }
+
+  async function handleClick(){
+      const response = await axios.post('http://localhost:3000/purchase',{
+        id: book._id,
+        quantity:book.count
+      },{headers:{
+        "Authorization":'Bearer ' +localStorage.getItem('token')
+      }})
   }
   return (
     <div
@@ -141,11 +153,11 @@ const Form = () => {
             size="small"
             onChange={handleStateChange}
           >
-           {cState.map(state=>{
-            return(
+           {cState.map(state=>
+            (
               <MenuItem key={state} value={state}>{state}</MenuItem>
             )
-           })}
+           )}
            
           </Select>
         </Box>
@@ -209,7 +221,7 @@ const Form = () => {
           setTimeout(()=>{
             alert("Sucessfully Purchased item")
           },3000)
-          
+          handleClick
 
         }}
         >Continue to Checkout</Button>
@@ -220,16 +232,9 @@ const Form = () => {
 };
 
 const OrderSummery = () => {
-  const book = {
-    name: "Sample Book Title",
-    author: "Author Name",
-    price: 19.99,
-    quantity: 100,
-    thumbnail: "http://example.com/thumbnail.jpg",
-    category: "Fiction",
-    description: "This is a brief description of the book.",
-  };
-
+  const book = useRecoilValue(CartState);
+  const ProductPrice = book.reduce((sum, books) => sum + ( books.price * books.count),0);
+  const shiping =100;
   return (
     <div
       style={{
@@ -254,7 +259,7 @@ const OrderSummery = () => {
         }}
       >
         <Typography variant="h6">Product</Typography>
-        <Typography variant="body1">Rs{book.price}</Typography>
+        <Typography variant="body1">Rs{ProductPrice}</Typography>
       </Box>
       <Box
         sx={{
@@ -265,7 +270,7 @@ const OrderSummery = () => {
         }}
       >
         <Typography variant="h6">Shiping</Typography>
-        <Typography variant="body1">Rs{book.price}</Typography>
+        <Typography variant="body1">Rs {shiping}</Typography>
       </Box>
       <Box
         sx={{
@@ -280,7 +285,7 @@ const OrderSummery = () => {
           Total
         </Typography>
         <Typography variant="body1" sx={{ fontWeight: "bold" }}>
-          Rs{book.price+book.price}
+          Rs {ProductPrice+shiping}
         </Typography>
       </Box>
 

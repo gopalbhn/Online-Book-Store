@@ -53,6 +53,7 @@ export default function AppBar() {
                 }}
                 onClick={()=>{
                     localStorage.setItem('token',null)
+                    localStorage.setItem('cart',null)
                     window.location.href = '/'
                 }}
                 >

@@ -26,6 +26,7 @@ const CheckOut = () => {
           display: "flex",
           justifyContent: "space-around",
           marginInline: "10px",
+          flexWrap:'wrap'
         }}
       >
         <Form></Form>
@@ -47,7 +48,11 @@ const Form = () => {
   const [country,setCountry] = useState('Nepal');
   const [cState,setCState] = useState(State[country])
   const [selectedState,setSelectedState] =useState(State[country][0])
-  
+  const [name,setName] = useState('');
+  const [last,setLast] = useState('');
+  const [address,setAddress] = useState('');
+  const [cardName,setCardName] = useState('');
+  console.log('name',name)
   function handleCountryChange(e){
     const selectedCountry = e.target.value;
     setCountry(selectedCountry)
@@ -66,6 +71,10 @@ const Form = () => {
       },{headers:{
         "Authorization":'Bearer ' +localStorage.getItem('token')
       }})
+
+      if(response){
+        console.log('sucessfull')
+  }
   }
   return (
     <div
@@ -97,11 +106,13 @@ const Form = () => {
             variant="outlined"
             size="small"
             hyperText="Name"
+            value={name}
+            onChange={(e)=>setName(e.target.value)}
           />
         </Box>
         <Box>
           <Typography>Last Nmae</Typography>
-          <TextField id="outlined-basic" variant="outlined" size="small" />
+          <TextField id="outlined-basic" variant="outlined" size="small"  value={last} onChange={(e)=>setLast(e.target.value)}/>
         </Box>
       </Box>
       <Box sx={{ paddingInline: "10px" }}>
@@ -111,12 +122,15 @@ const Form = () => {
           variant="outlined"
           size="small"
           fullWidth={true}
+          value={address}
+          onChange={(e)=>setAddress(e.target.value)}
         />
       </Box>
 
       <Box sx={{
         display:'flex',
-        justifyContent:'space-around'
+        gap:'10px',
+        flexWrap:'wrap'
       }}>
         <Box
           sx={{
@@ -168,7 +182,7 @@ const Form = () => {
           }}
         >
           <Typography variant="h6">Zip</Typography>
-          <TextField variant="outlined"  size="small"/>
+          <TextField variant="outlined"  size="small" />
         </Box>
       </Box>
       <div style={{marginLeft:'10px'}}>
@@ -176,28 +190,31 @@ const Form = () => {
       </div>
       <Box sx={{
         width:'100%',
-        paddingInline:'30px',
+        marginTop:'10px',
+        paddingInline:'10px',
         display:'flex',
-        gap:10
+        gap:'10px',
+        flexWrap:'wrap'
       }}>
         <Box>
             <Typography >Name on Card</Typography>
-            <TextField variant="outlined" size="small"></TextField>
+            <TextField variant="outlined" size="small" value={cardName} onChange={(e)=>setCardName(e.target.value)}></TextField>
         </Box>
         <Box>
             <Typography > Credit Card Number</Typography>
-            <TextField variant="outlined" size="small" ></TextField>
+            <TextField variant="outlined" size="small" type="number"></TextField>
         </Box>
       </Box>
       <Box sx={{
         width:'100%',
         paddingInline:'30px',
         display:'flex',
+        marginTop:'10px',
         gap:10
       }}>
         <Box>
             <Typography >Expiration</Typography>
-            <TextField variant="outlined" size="small" sx={{width:'100px'}}></TextField>
+            <TextField variant="outlined" size="small" sx={{width:'100px'}} type="date"></TextField>
         </Box>
         <Box>
             <Typography > CVV</Typography>
@@ -207,21 +224,19 @@ const Form = () => {
        
       </Box>
       <hr />
-      <div style={{width:'90%',height:'20px',marginInline:'auto'}}>
+      <div style={{width:'90%',minHeight:'25px',marginInline:'auto', display:"flex",flexWrap:'wrap'}}>
 
   
       <Button variant="contained" sx={{
          
           width:'100%',
-          marginInline:"auto",
+         
           bgcolor:'#7e75fa',
           color:'white',
         }}
         onClick={()=>{
-          setTimeout(()=>{
-            alert("Sucessfully Purchased item")
-          },3000)
-          handleClick
+         
+          handleClick()
 
         }}
         >Continue to Checkout</Button>

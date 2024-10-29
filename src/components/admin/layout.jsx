@@ -11,9 +11,21 @@ const AdminLayout= () =>{
         padding:5,
     }}>
         <AdminBar />
-        <ManageProduct />
+        <ViewProduct />
     </div>
     )
 }
+    const ViewProduct = ()=>{
+        return (
+            <div style={{
+                minHeight:'90vh',
+                width:'90%',
+                border:'1px solid',
+                marginTop:'10px',
+                marginInline:'auto'
+            }}>
 
+            </div>
+        )
+    }
 export default AdminLayout

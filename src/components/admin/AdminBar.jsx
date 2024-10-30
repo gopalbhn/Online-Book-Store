@@ -32,6 +32,11 @@ const navigate = useNavigate();
                 >Manage Product</Button>
             </div>
             <div>
+                <Button variant="text" size ='small' 
+                onClick = {()=>navigate('/product')}
+                >Add </Button>
+            </div>
+            <div>
                 <Button variant="text" size='small' endIcon ={< LoginIcon style={{marginLeft:'-8px'}}/>}
                 onClick = {()=>{
                     localStorage.setItem('token',null);

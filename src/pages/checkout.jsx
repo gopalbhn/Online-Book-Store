@@ -3,7 +3,11 @@ import { useState } from "react";
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useRecoilValue } from "recoil";
 import { CartState } from "../store/atom/cartatom";
+import  axios from 'axios'
+import SucessModal from "../components/sucessmodal";
+import { BackShoping } from "./shopingcart";
 const CheckOut = () => {
+  const cart = localStorage.getItem('cart');
   return (
     <div
       style={{
@@ -21,7 +25,7 @@ const CheckOut = () => {
         </Typography>
         <hr />
       </div>
-      <div
+      {(cart) ? (<div
         style={{
           display: "flex",
           justifyContent: "space-around",
@@ -32,7 +36,7 @@ const CheckOut = () => {
         <Form></Form>
 
         <OrderSummery />
-      </div>
+      </div> ) :(    <BackShoping /> ) }
       <Footer />
     </div>
   );
@@ -63,17 +67,19 @@ const Form = () => {
   function handleStateChange(e){
     setSelectedState(e.target.value);
   }
-
+  
   async function handleClick(){
-      const response = await axios.post('http://localhost:3000/purchase',{
-        id: book._id,
-        quantity:book.count
+    console.log(book)
+    
+      const response = await axios.post('http://localhost:3000/users/purchase',{
+       book
       },{headers:{
-        "Authorization":'Bearer ' +localStorage.getItem('token')
+        'Authorization':'Bearer ' +localStorage.getItem('token')
       }})
-
+      console.log(response)
       if(response){
-        console.log('sucessfull')
+        localStorage.setItem('cart',[]);
+        return(<SucessModal />)
   }
   }
   return (

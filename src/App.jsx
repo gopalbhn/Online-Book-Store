@@ -17,7 +17,7 @@ import { userState } from "./store/atom/useratom.js";
 import { userRole } from "./store/selectors/userSelector.js";
 import InvestmentBooks from "./pages/investmentBooks.jsx";
 import { bookState } from "./store/atom/bookatom.js";
-import ShopingCart from "./pages/shopingcart.jsx";
+import {ShopingCart} from "./pages/shopingcart.jsx";
 import CheckOut from "./pages/checkout.jsx";
 import { Landing } from "./pages/landing.jsx";
 import SelfHelp from "./pages/selfhelp.jsx";

@@ -33,9 +33,19 @@ const bookSchema = new mongoose.Schema({
     category:String,
     description:String,
 })
-
+const orderSchema = new mongoose.Schema({
+    orderId:{
+        type:[mongoose.Schema.Types.ObjectId],
+        ref:'User',
+    },
+    quantity:{
+        type:Number,
+        required:true,
+    }
+})
 userSchema.pre('save',function(next){
     if(this.role === 'Admin'){
+        
         this.purchasedBooks = undefined;
     }
     next();

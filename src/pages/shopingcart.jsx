@@ -20,7 +20,7 @@ const ShopingCart = () => {
           Shoping Cart
         </Typography>
       </div>
-      {!(cart.length ==0)? ( <div
+      {!(cart.length ==0) || !cart? ( <div
         style={{
           width: "90%",
           display: "flex",
@@ -243,4 +243,4 @@ const BackShoping = () =>{
     </div>
   )
 }
-export default ShopingCart;
+export  {ShopingCart,BackShoping };

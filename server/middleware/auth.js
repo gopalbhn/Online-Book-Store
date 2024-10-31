@@ -36,4 +36,11 @@ const isAdmin = (req,res,next) =>{
         res.status(403).json({message:'User is not admin'})
     }
 }
-module.exports = {generateJwt,athunticateJWT,isAdmin} ;
+const isCostumer = (req,res,next) => {
+    if(req.user.role === "Costumer"){
+        next();
+    }else{
+        res.status(403).json({message:'User is not Costumer'});
+    }
+}
+module.exports = {generateJwt,athunticateJWT,isAdmin,isCostumer} ;

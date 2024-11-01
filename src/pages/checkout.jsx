@@ -7,7 +7,7 @@ import  axios from 'axios'
 import SucessModal from "../components/sucessmodal";
 import { BackShoping } from "./shopingcart";
 const CheckOut = () => {
-  const cart = localStorage.getItem('cart');
+  const cart = JSON.parse(localStorage.getItem('cart'));
   return (
     <div
       style={{
@@ -25,7 +25,8 @@ const CheckOut = () => {
         </Typography>
         <hr />
       </div>
-      {(cart) ? (<div
+    {  console.log('cart',cart)}
+      {!(cart.length == 0) ? (<div
         style={{
           display: "flex",
           justifyContent: "space-around",
@@ -45,7 +46,7 @@ const CheckOut = () => {
 const Form = () => {
   const State  = {
     "Nepal":['Koshi','Madhesh','Bagmati','SudurPachim'],
-    "India":['Dehli','Mumbai',"Bihar","Panjab"],
+    "India":['Delhi','Mumbai',"Bihar","Panjab"],
     "China":[]
   }
   const book = useRecoilValue(CartState);
@@ -56,6 +57,7 @@ const Form = () => {
   const [last,setLast] = useState('');
   const [address,setAddress] = useState('');
   const [cardName,setCardName] = useState('');
+  const [show,setShow] = useState(false)
   console.log('name',name)
   function handleCountryChange(e){
     const selectedCountry = e.target.value;
@@ -78,8 +80,15 @@ const Form = () => {
       }})
       console.log(response)
       if(response){
-        localStorage.setItem('cart',[]);
-        return(<SucessModal />)
+       localStorage.setItem('cart','[]');
+       setTimeout(()=>{
+        setShow(!show)
+       },3000)
+       setTimeout(()=>{
+        window.location.reload();
+       },5000)
+      
+        
   }
   }
   return (
@@ -91,6 +100,7 @@ const Form = () => {
         border: "1px solid green",
       }}
     >
+       {show ? (<SucessModal />) :null}
       <div style={{ backgroundColor: "#bdbebf", textAlign: "center" }}>
         <Typography variant="body1">Billing Address</Typography>
       </div>
@@ -247,7 +257,7 @@ const Form = () => {
         }}
         >Continue to Checkout</Button>
             </div>
-        
+       
     </div>
   );
 };

@@ -34,8 +34,12 @@ router.post("/login", async (req, res) => {
   const { username, password } = req.headers;
   const user = await User.findOne({ username });
   if (user) {
-    const token = generateJwt(user);
-    res.status(200).json({ message: "user loggedIn sucessfully", token });
+    if(user.username === username && user.password === password){
+
+      const token = generateJwt(user);
+      res.status(200).json({ message: "user loggedIn sucessfully", token });
+    }
+   
   } else {
     res.status(403);
   }
@@ -69,7 +73,7 @@ router.post("/addbook", athunticateJWT, isAdmin, async (req, res) => {
 router.get("/getbooks", async (req, res) => {
   const books = await Book.find();
   res.status(200).json({ books });
-}),
+});
   router.post("/purchase", athunticateJWT, isCostumer, async (req, res) => {
     const books = req.body;
     const book = books.book;

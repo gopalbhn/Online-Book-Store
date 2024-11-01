@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import {
   Container,
-  TextField,
   Button,
   Grid,
   Typography,
@@ -29,9 +28,7 @@ const ManageProduct = () => {
   return (
     <Container>
       <Typography variant="h4" gutterBottom>Manage Products</Typography>
-     
-
-        <Grid item xs={12}>
+      <Grid item xs={12}>
           <Typography variant="h6">Product List</Typography>
           {products.map(product => (
             <Card key={product.id} variant="outlined" style={{ marginBottom: '16px' }}>

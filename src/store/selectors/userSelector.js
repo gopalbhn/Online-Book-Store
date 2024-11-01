@@ -1,5 +1,6 @@
 import { selector } from 'recoil';
 import { userState } from '../atom/useratom.js';
+import PurchaseHistory from '../../pages/history.jsx';
 
  const userEmail = selector({
     key: "userEmail",
@@ -23,5 +24,16 @@ const userRole = selector({
         return null;
     }
 })
-
-export {userRole,userEmail}
+const purchase = selector({
+    key:'purchase',
+    get:({get}) => {
+        const state = get(userState);
+        const user = state.user;
+        console.log('purchase selector',user)
+        if(user){
+            return user.purchasedBooks;
+        }
+        return null
+    }
+})
+export {userRole,userEmail,purchase}

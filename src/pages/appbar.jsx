@@ -71,7 +71,19 @@ export default function AppBar() {
                         navigate('/shopingCart')
                     }><ShoppingCartIcon /> Cart {product.length}</Button>
                 </div>
+                <div>
+                <Button variant="outlined" sx={{
+                    color:'##7e75fa'
+                }}
+                onClick={()=>{
+                   navigate('/history')
+                }}
+                >
+                    Purchase History
+                </Button>
             </div>
+            </div>
+            
 
 
 }

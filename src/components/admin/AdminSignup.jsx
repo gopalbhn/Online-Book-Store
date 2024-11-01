@@ -18,7 +18,9 @@ export default function AdminSignup() {
       }
     );
     if (response) {
-      console.log(response);
+      let data = response.data;
+      localStorage.setItem('token',data.token)
+      window.location.href = '/'
     }
   }
   return (

@@ -21,6 +21,7 @@ import {ShopingCart} from "./pages/shopingcart.jsx";
 import CheckOut from "./pages/checkout.jsx";
 import { Landing } from "./pages/landing.jsx";
 import SelfHelp from "./pages/selfhelp.jsx";
+import PurchaseHistory from "./pages/history.jsx";
 function App() {
   return (
     <RecoilRoot>
@@ -96,6 +97,7 @@ function InitUser() {
         <Route path="/investment" element={<InvestmentBooks />} />
         <Route path="/shopingCart" element={<ShopingCart />} />
         <Route path="/checkout" element={<CheckOut />} />
+        <Route path="/history" element={<PurchaseHistory />} />
         <Route path="selfhelp" element={<SelfHelp />} />
         {role == "Admin" && (
           <Route path="/admin/dashbord" element={<AdminLayout />} />

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const ShopingCart = () => {
   const book = useRecoilValue(CartState);
-  const cart = JSON.parse(localStorage.getItem('cart'));
+  const cart = JSON.parse(localStorage.getItem('cart'))
   return (
     <div
       style={{
@@ -20,7 +20,8 @@ const ShopingCart = () => {
           Shoping Cart
         </Typography>
       </div>
-      {!(cart.length ==0) || !cart? ( <div
+     { console.log('length',cart.length)}
+      {!(cart.length == 0) ? ( <div
         style={{
           width: "90%",
           display: "flex",

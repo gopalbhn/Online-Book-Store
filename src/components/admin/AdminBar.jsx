@@ -1,11 +1,11 @@
-import { Button, Typography } from "@mui/material"
+import { Button, Typography,Grid } from "@mui/material"
 import { useNavigate } from "react-router-dom"
 import LoginIcon from '@mui/icons-material/Login';
 const AdminBar =() =>{
 const navigate = useNavigate();
     return(
         <div style={{
-            height:30,
+            height:50,
             width:'90%',
             display:'flex',
             marginInline:'auto',
@@ -33,7 +33,7 @@ const navigate = useNavigate();
             </div>
             <div>
                 <Button variant="text" size ='small' 
-                onClick = {()=>navigate('/product')}
+                onClick = {()=>navigate('/addbook')}
                 >Add </Button>
             </div>
             <div>

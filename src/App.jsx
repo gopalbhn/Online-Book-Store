@@ -22,6 +22,8 @@ import CheckOut from "./pages/checkout.jsx";
 import { Landing } from "./pages/landing.jsx";
 import SelfHelp from "./pages/selfhelp.jsx";
 import PurchaseHistory from "./pages/history.jsx";
+import ManageProduct from "./components/admin/manageProduct.jsx";
+import AddBooks from "./components/admin/addbook.jsx";
 function App() {
   return (
     <RecoilRoot>
@@ -104,6 +106,12 @@ function InitUser() {
         )}
         {role == "Admin" && (
           <Route path="/admin/signup" element={<AdminSignup />} />
+        )}
+        {role == 'Admin' && (
+          <Route path="/product" element={<ManageProduct />} />
+        )}
+        {role == 'Admin' && (
+          <Route path="/addbook" element={<AddBooks />} />
         )}
       </Routes>
     </div>

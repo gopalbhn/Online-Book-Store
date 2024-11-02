@@ -40,7 +40,8 @@ function Landing() {
             minHeight: '100vh',
             width: '90%',
             marginInline: 'auto',
-            marginBottom:'100px'
+            marginBottom:'100px',
+            marginTop:'20px',
         }}>
         {console.log('from books',book[0])}
             <ImageSlider />

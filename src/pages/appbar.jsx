@@ -13,7 +13,9 @@ export default function AppBar() {
             display: 'flex',
             justifyContent: 'space-between',
             padding: '5px',
-            marginInline:'10px'
+            marginInline:'10px',
+         
+            boxShadow: "0 5px 10px rgba(0, 0, 0, 0.1)",
         }}>
             {console.log('username',username)}
             <a href="/" style={{

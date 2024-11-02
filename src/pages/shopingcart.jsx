@@ -20,8 +20,8 @@ const ShopingCart = () => {
           Shoping Cart
         </Typography>
       </div>
-     { console.log('length',cart.length)}
-      {!(cart.length == 0) ? ( <div
+   
+      {(cart && cart.length > 0) ? ( <div
         style={{
           width: "90%",
           display: "flex",

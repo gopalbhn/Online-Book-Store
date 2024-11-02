@@ -96,11 +96,12 @@ const Form = () => {
       style={{
         minHeight: "90vh",
         minWidth: "60%",
+        marginTop:'20px',
         marginLeft: "20px",
         border: "1px solid green",
       }}
     >
-       {show ? (<SucessModal />) :null}
+       {show ? (<SucessModal text={"Purchased"} />) :null}
       <div style={{ backgroundColor: "#bdbebf", textAlign: "center" }}>
         <Typography variant="body1">Billing Address</Typography>
       </div>

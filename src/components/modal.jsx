@@ -96,7 +96,7 @@ const Modal = ({ onClick, title, description, image, price,quantity,product }) =
             </div>
             <div
               style={{
-                maxHeight: "20vh",
+                maxHeight: "25vh",
               }}
             >
               <Typography variant="body1">{description}</Typography>

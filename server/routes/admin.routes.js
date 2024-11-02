@@ -59,12 +59,19 @@ router.post("/admin/signup", athunticateJWT, isAdmin, async (req, res) => {
     res.status(200).json({ message: "Admin created sucessfully" });
   }
 });
-router.post("/addbook", athunticateJWT, isAdmin, async (req, res) => {
+router.post("/admin/addbook", athunticateJWT, isAdmin, async (req, res) => {
   const book = req.body;
   console.log(book);
   if (!book) {
-    res.status("403").json({ message: "Books detail not found" });
+    res.status(400).json({ message: "Books detail not found" });
   }
+  const  {name,description,author} = book;
+  console.log('name',name)
+  if([name,description,author].some(field=> field?.trim() === '')){
+     return res.status(400).json({message:'Some fields are empty'})
+      
+  }
+ 
   const newbook = new Book(book);
   await newbook.save();
   res.status(201).json({ message: "Book listed sucessfully" });
@@ -96,4 +103,16 @@ router.get("/getbooks", async (req, res) => {
       }
     }
   });
+
+  router.get('/purchasedBooks',athunticateJWT,isCostumer,async(req,res) =>{
+   const user = await User.findOne({username : req.user.username}).populate('purchasedBooks');
+
+  if(user){
+    console.log('user',user)
+    res.status(200).json({purchasedCourses:user.purchasedBooks})
+  }
+  else{
+    res.status(403).json({message:'Course not found'})
+  }
+  })
 module.exports = router;

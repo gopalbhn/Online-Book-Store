@@ -13,8 +13,9 @@ export default function Product({onClick,booksDetail}){
         }}>
             {console.log('product',book)}
             <div style={{display:'flex',alignItems:'center', justifyContent:'center', paddingTop:2}}>
-                <img src={book.thumbnail} height={150} width={240}/>
+                <img src={book.thumbnail} height={'150px'} width={'240px'}/>
             </div>
+            <Typography align="center">{book.name}</Typography>
             <Typography align="right" marginRight={5}>{book.price}</Typography>
             <Button variant="contained" fullWidth={true} sx={{
                 bgcolor:'#7e75fa',

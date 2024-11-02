@@ -10,6 +10,7 @@ const InvestmentBooks = () => {
   const [product,setProduct] = useState(null)
   const [show,setShow] = useState(false);
   function handleClick(pro){
+    console.log('pro',pro)
     setProduct(pro)
  
  setShow(!show)
@@ -23,21 +24,22 @@ function handleToogle(){
         height:'100vh',
         width: "90%",
         marginInline: "auto",
-      
+        marginTop:'20px'
       }}
     >
+      {console.log('books',book)}
       <TopBar />
       <Grid container spacing={3} >
       
       {book.map((books) => {
         return (
-          <Grid item xs={12} sm={6} lg={3} >
+          <Grid item xs={12} sm={6} lg={3} key = {books._id} >
           <Product onClick={() => handleClick(books)} booksDetail={books} />
           </Grid>
         );
       })}
       </Grid>
-      {show ? (<Modal title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} />) :null}
+      {show ? (<Modal title={product.name} image={product.thumbnail} price={product.price} description={product.description} onClick={handleToogle} product={product} />) :null}
     </div>
   );
 };

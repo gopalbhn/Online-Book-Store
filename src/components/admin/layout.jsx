@@ -32,9 +32,9 @@ const ViewProduct = () => {
       style={{
         minHeight: "90vh",
         width: "90%",
-        border: "1px solid",
         marginTop: "10px",
         marginInline: "auto",
+        boxShadow: "0 2px 10px rgba(0, 0, 0, 0.1)"
       }}
     >
       <div
@@ -82,7 +82,7 @@ const OrderItem = ({onClick}) => {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-around",
-        border: "1px solid black",
+    
 
         flexWrap: "wrap",
       }}
